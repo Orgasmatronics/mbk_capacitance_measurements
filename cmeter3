@@ -1,0 +1,32 @@
+int x;
+int sensorPin = A5;
+int motorPin = 5;
+int vPin = 9;
+int vin = 0;
+int motorSpeed = 0;
+int vout = 0;
+boolean buttonState = false;
+int buttonPin = 2;
+
+
+void setup() {
+  Serial.begin(9600);
+  analogWrite(vPin,255);
+}
+
+void loop() {      
+    analogWrite(vPin,0);
+    while(vin > 368){
+      vin = analogRead(sensorPin);
+      motorSpeed = vin/4;
+      analogWrite(motorPin,motorSpeed);
+      delay(1);
+    }
+    analogWrite(vPin,255);
+    while(vin < 1000){
+      vin = analogRead(sensorPin);
+      motorSpeed = vin/4;
+      analogWrite(motorPin,motorSpeed);
+      delay(1);
+    }
+}
