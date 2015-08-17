@@ -1,0 +1,41 @@
+int x;
+int sensorPin = A5;
+int motorPin = 5;
+int vPin = 9;
+int vin = 0;
+int motorSpeed = 0;
+int vout = 0;
+boolean buttonState = false;
+int buttonPin = 2;
+
+
+void setup() {
+  Serial.begin(9600);
+  analogWrite(vPin,255);
+}
+
+void loop() {
+    buttonState = digitalRead(buttonPin); //read button state
+//    buttonState = Serial.available(); //wait for ping from computer
+    int x[500];
+    int index = 0;
+    if(buttonState){
+      analogWrite(vPin,0);
+      for(index = 0; index < 500;index++){
+        x[index] = analogRead(sensorPin);
+ //       analogWrite(motorPin,x[index]);
+        delay(50); 
+      }
+      
+      for(index = 0; index < 500;index++){
+        Serial.print(x[index]);
+        Serial.print("  ");
+      }
+      Serial.println();
+    }
+    analogWrite(vPin,255);
+    vin = analogRead(sensorPin);
+   // Serial.print(vin);
+   // Serial.println();
+    delay(5);
+}
