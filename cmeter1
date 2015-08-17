@@ -1,0 +1,31 @@
+int x;
+int sensorPin = A5;
+int motorPin = 5;
+int vPin = 9;
+int vin = 0;
+int motorSpeed = 0;
+int vout = 0;
+boolean buttonState = false;
+int buttonPin = 2;
+
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+    buttonState = digitalRead(buttonPin); //read button state
+    if(buttonState){
+      vout = 255;
+    }
+    else{
+      vout = 0;
+    }
+    analogWrite(vPin,vout);
+    vin = analogRead(sensorPin);
+    motorSpeed = vin/4;
+    analogWrite(motorPin,motorSpeed);
+    Serial.print(vin);
+    Serial.println();
+    delay(1);
+}
